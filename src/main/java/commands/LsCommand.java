@@ -17,7 +17,7 @@ public class LsCommand implements Command {
 
     public void execute(String[] args, Environment env) {
         Console console = env.getConsole();
-        File dir = new File(env.getCurrentDirectory().toFile());
+        File dir = env.getCurrentDirectory().toFile();
         for (File f : dir.listFiles()) {
             System.out.println(f);
         }

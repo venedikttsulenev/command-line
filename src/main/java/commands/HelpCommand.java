@@ -7,8 +7,14 @@ import java.io.Console;
 public class HelpCommand implements Command {
 
     private static final HelpCommand instance = new HelpCommand();
-    private static final String [] supportedCommands = new String [] {"help"};
-    private static final String [] descriptions = new String[] {"display help"};
+    private static final String[][] supportedCommands = new String[][] {
+            {"help",    "display help"},
+            {"ls",      "list files"},
+            {"quit",    "quit"},
+            {"zip",     "create zip archive"}
+    };
+    private final static int NAME = 0;
+    private final static int DESCRIPTION = 1;
 
     public static HelpCommand getInstance() {
         return instance;
@@ -18,7 +24,7 @@ public class HelpCommand implements Command {
 
     public void execute(String [] args, Environment env) {
         Console console = env.getConsole();
-        for (int i = 0; i < supportedCommands.length; ++i)
-            console.printf("%s -- %s%n", supportedCommands[i], descriptions[i]);
+        for (String [] cmd : supportedCommands)
+            console.printf("%-5s -- %s%n", cmd[NAME], cmd[DESCRIPTION]);
     }
 }
