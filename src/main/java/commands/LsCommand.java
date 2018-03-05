@@ -7,8 +7,6 @@ import java.io.File;
 
 public class LsCommand implements Command {
     private static final LsCommand instance = new LsCommand();
-    private static final String[] supportedCommands = new String[]{"ls"};
-    private static final String[] descriptions = new String[]{"display ls"};
 
     public static LsCommand getInstance() {
         return instance;
