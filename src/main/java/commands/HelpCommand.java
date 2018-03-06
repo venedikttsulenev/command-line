@@ -7,7 +7,6 @@ import java.io.Console;
 public class HelpCommand extends Command {
 
     private static final HelpCommand instance = new HelpCommand();
-    private static final Command[] supportedCommands = CommandResolver.getSupportedCommands();
 
     public static HelpCommand getInstance() {
         return instance;
@@ -19,7 +18,7 @@ public class HelpCommand extends Command {
 
     public void execute(String [] args, Environment env) {
         Console console = env.getConsole();
-        for (Command cmd : supportedCommands)
-            console.printf("%-5s -- %s%n    usage: '%s'%n", cmd.getName(), cmd.getDescription(), cmd.getUsage());
+        for (Command cmd : CommandResolver.getSupportedCommands())
+            console.printf("%n%-4s -- %s%n  usage: '%s'%n", cmd.getName(), cmd.getDescription(), cmd.getUsage());
     }
 }
