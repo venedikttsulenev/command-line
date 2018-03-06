@@ -22,6 +22,33 @@ public class ZipCommand extends Command {
         super("zip", "zip <file1> <file2> ... <output file>", "create zip archive");
     }
 
+    private void zipFile(String root, File file, ZipOutputStream zipOut) throws IOException {
+        if (file.isDirectory()) {
+            File[] list = file.listFiles();
+            if (list == null)
+                return; /* This is not good */
+            String newRoot = root + file.getName() + '/';
+            if (list.length != 0) { /* If folder is not empty */
+                for (File f : list)
+                    zipFile(newRoot, f, zipOut);
+            }
+            else { /* Include empty folders */
+                zipOut.putNextEntry(new ZipEntry(root + file.getName() + '/'));
+                zipOut.closeEntry();
+            }
+        } else {
+            FileInputStream fIn = new FileInputStream(file);
+            ZipEntry entry = new ZipEntry(root + file.getName());
+            zipOut.putNextEntry(entry);
+            int bytesRead;
+            byte[] buffer = new byte[BUFFER_SIZE];
+            while (-1 != (bytesRead = fIn.read(buffer, 0, BUFFER_SIZE)))
+                zipOut.write(buffer, 0, bytesRead);
+            fIn.close();
+            zipOut.closeEntry();
+        }
+    }
+
     @Override
     public void execute(String[] args, Environment env) {
         Path dir = env.getCurrentDirectory();
@@ -33,23 +60,16 @@ public class ZipCommand extends Command {
             try {
                 outputFile.createNewFile();
                 ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(outputFile));
-                FileInputStream fIn;
                 for (int i = 0; i < args.length - 1; ++i) {
                     File file = Paths.get(dir.toString(), args[i]).toFile();
-                    if (!file.exists()) {
+                    if (!file.exists())
                         console.printf("Error: file '%s' does not exist%n", args[i]);
-                    }
-                    else {
-                        fIn = new FileInputStream(file);
-                        ZipEntry entry = new ZipEntry(file.getName());
-                        zipOut.putNextEntry(entry);
-                        int bytesRead;
-                        byte[] buffer = new byte[BUFFER_SIZE];
-                        while (-1 != (bytesRead = fIn.read(buffer, 0, BUFFER_SIZE)))
-                            zipOut.write(buffer, 0, bytesRead);
-                        fIn.close();
-                        zipOut.closeEntry();
-                    }
+                    else
+                        try {
+                            zipFile("", file, zipOut);
+                        } catch (IOException e) {
+                            console.printf("Error: '%s'%n", e.getMessage());
+                        }
                 }
                 zipOut.close();
             } catch (IOException e) {
