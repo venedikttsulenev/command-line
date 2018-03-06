@@ -5,7 +5,7 @@ import utils.Environment;
 import java.io.Console;
 import java.io.File;
 
-public class LsCommand implements Command {
+public class LsCommand extends Command {
     private static final LsCommand instance = new LsCommand();
 
     public static LsCommand getInstance() {
@@ -13,6 +13,7 @@ public class LsCommand implements Command {
     }
 
     private LsCommand() {
+        super("ls", "ls", "list files");
     }
 
     public void execute(String[] args, Environment env) {

@@ -4,12 +4,21 @@ import java.util.HashMap;
 
 public class CommandResolver {
 
+    private static final Command[] supportedCommands = new Command[] {
+            HelpCommand.getInstance(),
+            LsCommand.getInstance(),
+            QuitCommand.getInstance(),
+            ZipCommand.getInstance()
+    };
+
     private static final HashMap<String, Command> commandMapping = new HashMap<String, Command>(){{
-        put("help", HelpCommand.getInstance());
-        put("quit", QuitCommand.getInstance());
-        put("ls", LsCommand.getInstance());
-        put("zip", ZipCommand.getInstance());
+        for (Command command : supportedCommands)
+            put(command.getName(), command);
     }};
+
+    public static Command[] getSupportedCommands() {
+        return supportedCommands;
+    }
 
     public static Command getCommandForString(String name) {
         /* for given string return corresponding Command instance */

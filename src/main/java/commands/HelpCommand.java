@@ -4,27 +4,22 @@ import utils.Environment;
 
 import java.io.Console;
 
-public class HelpCommand implements Command {
+public class HelpCommand extends Command {
 
     private static final HelpCommand instance = new HelpCommand();
-    private static final String[][] supportedCommands = new String[][] {
-            {"help",    "display help"},
-            {"ls",      "list files"},
-            {"quit",    "quit"},
-            {"zip",     "create zip archive"}
-    };
-    private final static int NAME = 0;
-    private final static int DESCRIPTION = 1;
+    private static final Command[] supportedCommands = CommandResolver.getSupportedCommands();
 
     public static HelpCommand getInstance() {
         return instance;
     }
 
-    private HelpCommand() {}
+    private HelpCommand() {
+        super("help", "help", "display help");
+    }
 
     public void execute(String [] args, Environment env) {
         Console console = env.getConsole();
-        for (String [] cmd : supportedCommands)
-            console.printf("%-5s -- %s%n", cmd[NAME], cmd[DESCRIPTION]);
+        for (Command cmd : supportedCommands)
+            console.printf("%-5s -- %s%n    usage: '%s'%n", cmd.getName(), cmd.getDescription(), cmd.getUsage());
     }
 }
