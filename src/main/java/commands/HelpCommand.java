@@ -19,6 +19,6 @@ public class HelpCommand extends Command {
     public void execute(String [] args, Environment env) {
         Console console = env.getConsole();
         for (Command cmd : CommandResolver.getSupportedCommands())
-            console.printf("%n%-4s -- %s%n  usage: '%s'%n", cmd.getName(), cmd.getDescription(), cmd.getUsage());
+            console.printf("%n%s -- %s%n  usage: '%s'%n", cmd.getName(), cmd.getDescription(), cmd.getUsage());
     }
 }
