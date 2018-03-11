@@ -9,7 +9,8 @@ public class CommandResolver {
             LsCommand.getInstance(),
             QuitCommand.getInstance(),
             ZipCommand.getInstance(),
-            UnzipCommand.getInstance()
+            UnzipCommand.getInstance(),
+            MkdirCommand.getInstance()
     };
 
     private static final HashMap<String, Command> commandMapping = new HashMap<String, Command>(){{
