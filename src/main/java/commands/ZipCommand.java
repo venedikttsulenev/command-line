@@ -27,13 +27,13 @@ public class ZipCommand extends Command {
             File[] list = file.listFiles();
             if (list == null)
                 return; /* This is not good */
-            String newRoot = root + file.getName() + '/';
+            String newRoot = root + file.getName() + File.separator;
             if (list.length != 0) { /* If folder is not empty */
                 for (File f : list)
                     zipFile(newRoot, f, zipOut);
             }
             else { /* Include empty folders */
-                zipOut.putNextEntry(new ZipEntry(root + file.getName() + '/'));
+                zipOut.putNextEntry(new ZipEntry(root + file.getName() + File.separator));
                 zipOut.closeEntry();
             }
         } else {
@@ -53,8 +53,10 @@ public class ZipCommand extends Command {
     public void execute(String[] args, Environment env) {
         Path dir = env.getCurrentDirectory();
         Console console = env.getConsole();
-        if (args.length < 2)
-            console.printf("Too few arguments: at least 2 expected%n");
+        if (args.length < 2) {
+            console.printf("Error: Too few arguments: at least 2 expected%n");
+            console.printf("Usage: %s%n", getUsage());
+        }
         else {
             File outputFile = Paths.get(dir.toString(), args[args.length - 1]).toFile();
             try {
