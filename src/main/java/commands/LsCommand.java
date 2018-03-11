@@ -20,7 +20,7 @@ public class LsCommand extends Command {
         Console console = env.getConsole();
         File dir = env.getCurrentDirectory().toFile();
         for (File f : dir.listFiles()) {
-            System.out.println(f);
+            console.printf("%s%n", f.toString());
         }
     }
 }
