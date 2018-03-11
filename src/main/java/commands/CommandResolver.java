@@ -8,7 +8,8 @@ public class CommandResolver {
             HelpCommand.getInstance(),
             LsCommand.getInstance(),
             QuitCommand.getInstance(),
-            ZipCommand.getInstance()
+            ZipCommand.getInstance(),
+            UnzipCommand.getInstance()
     };
 
     private static final HashMap<String, Command> commandMapping = new HashMap<String, Command>(){{
@@ -21,7 +22,7 @@ public class CommandResolver {
     }
 
     public static Command getCommandForString(String name) {
-        /* for given string return corresponding Command instance */
+        /* Get Command instance by command name */
         return commandMapping.get(name);
     }
 }
