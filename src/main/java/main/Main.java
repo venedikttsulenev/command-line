@@ -15,15 +15,21 @@ public class Main {
                 Paths.get(System.getProperty("user.dir"))
         );
         while (!environment.isExit()) {
-            String s = console.readLine();
+            String s;
+            do {
+                s = console.readLine().trim();
+            }
+            while (s.length() == 0);
             String commandName = s;
-            String [] arguments = null;
-            int spaceIndex = s.indexOf(' ');
-            if (spaceIndex != -1) {
+            String[] arguments = null;
+            int spaceIndex = 0;
+            while (spaceIndex < s.length() && !Character.isWhitespace(s.charAt(spaceIndex)))
+                ++spaceIndex;
+            if (spaceIndex != s.length()) { /* There are some arguments */
                 commandName = s.substring(0, spaceIndex);
-                while (s.charAt(spaceIndex) == ' ')
+                while (Character.isWhitespace(s.charAt(spaceIndex)))
                     ++spaceIndex;
-                arguments = s.substring(spaceIndex).split(" +");
+                arguments = s.substring(spaceIndex).split("\\s+");
             }
             Command command = CommandResolver.getCommandForString(commandName);
             if (command != null)
