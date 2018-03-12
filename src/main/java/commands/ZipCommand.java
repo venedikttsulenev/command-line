@@ -58,12 +58,12 @@ public class ZipCommand extends Command {
             console.printf("Usage: %s%n", getUsage());
         }
         else {
-            File outputFile = Paths.get(dir.toString(), args[args.length - 1]).toFile();
+            File outputFile = Paths.get(dir.toString(), args[args.length - 1]).normalize().toFile();
             try {
                 outputFile.createNewFile();
                 ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(outputFile));
                 for (int i = 0; i < args.length - 1; ++i) {
-                    File file = Paths.get(dir.toString(), args[i]).toFile();
+                    File file = Paths.get(dir.toString(), args[i]).normalize().toFile();
                     if (!file.exists())
                         console.printf("Error: file '%s' does not exist%n", args[i]);
                     else

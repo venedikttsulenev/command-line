@@ -19,7 +19,7 @@ public class MkdirCommand extends Command {
 
     @Override
     public void execute(String[] args, Environment env) {
-        if (!Paths.get(args[0]).toFile().mkdirs()) {
+        if (!Paths.get(args[0]).normalize().toFile().mkdirs()) {
             String currentDir = env.getCurrentDirectory().toString();
             Path newDir = Paths.get(currentDir, args[0]).normalize();
             newDir.toFile().mkdirs();

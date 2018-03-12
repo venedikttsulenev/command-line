@@ -62,7 +62,7 @@ public class UnzipCommand extends Command {
             console.printf("Error: '%s' is not a directory%n", args[1]);
             return;
         }
-        File inputFile = Paths.get(dir.toString(), args[0]).toFile();
+        File inputFile = Paths.get(dir.toString(), args[0]).normalize().toFile();
         if (!inputFile.exists()) {
             console.printf("Error: '%s' file does not exist%n", args[0]);
             return;
