@@ -9,17 +9,22 @@ import java.io.Console;
 import java.nio.file.Paths;
 
 public class Main {
+    private static final Console console = System.console();
+    private static final Environment environment = new Environment(
+            console,
+            Paths.get(System.getProperty("user.dir"))
+    );
+    private static void prompt() {
+        console.printf("> ");
+    }
     public static void main(String[] args) {
-        Console console = System.console();
-        Environment environment = new Environment(
-                console,
-                Paths.get(System.getProperty("user.dir"))
-        );
         while (!environment.isExit()) {
             String line;
-            do
+            do {
+                prompt();
                 line = console.readLine().trim();
-            while (line.length() == 0);
+            }
+            while (line.length() == 0); /* Ignore lines that do not contain non-whitespace characters */
 
             ParseUtils.ParseResult parseResult = ParseUtils.parseCommand(line);
             String commandName = parseResult.getCommandName();
