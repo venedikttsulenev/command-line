@@ -22,7 +22,7 @@ public class ParseUtils {
 
     public static ParseResult parseCommand(String line) {
         String commandName = line;
-        String[] arguments = null;
+        String[] arguments;
         int spaceIndex = 0;
         while (spaceIndex < line.length() && !Character.isWhitespace(line.charAt(spaceIndex)))
             ++spaceIndex;
@@ -31,6 +31,8 @@ public class ParseUtils {
             while (Character.isWhitespace(line.charAt(spaceIndex)))
                 ++spaceIndex;
             arguments = line.substring(spaceIndex).split("\\s+");
+        } else { /* There is no arguments */
+            arguments = new String[0];
         }
         return new ParseResult(commandName, arguments);
     }
