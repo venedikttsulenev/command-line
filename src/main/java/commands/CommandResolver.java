@@ -6,11 +6,13 @@ public class CommandResolver {
 
     private static final Command[] supportedCommands = new Command[] {
             HelpCommand.getInstance(),
-            LsCommand.getInstance(),
             QuitCommand.getInstance(),
+            LsCommand.getInstance(),
+            CdCommand.getInstance(),
+            PwdCommand.getInstance(),
+            MkdirCommand.getInstance(),
             ZipCommand.getInstance(),
-            UnzipCommand.getInstance(),
-            MkdirCommand.getInstance()
+            UnzipCommand.getInstance()
     };
 
     private static final HashMap<String, Command> commandMapping = new HashMap<String, Command>(){{

@@ -2,7 +2,6 @@ package commands;
 
 import utils.Environment;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -20,8 +19,10 @@ public class MkdirCommand extends Command {
 
     @Override
     public void execute(String[] args, Environment env) {
-        String currentDir = env.getCurrentDirectory().toString();
-        Path newDir = Paths.get(currentDir, args[0]).normalize();
-        newDir.toFile().mkdirs();
+        if (!Paths.get(args[0]).toFile().mkdirs()) {
+            String currentDir = env.getCurrentDirectory().toString();
+            Path newDir = Paths.get(currentDir, args[0]).normalize();
+            newDir.toFile().mkdirs();
+        }
     }
 }
