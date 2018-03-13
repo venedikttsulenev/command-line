@@ -12,7 +12,8 @@ public class CommandResolver {
             PwdCommand.getInstance(),
             MkdirCommand.getInstance(),
             ZipCommand.getInstance(),
-            UnzipCommand.getInstance()
+            UnzipCommand.getInstance(),
+            ExtractCommand.getInstance()
     };
 
     private static final HashMap<String, Command> commandMapping = new HashMap<String, Command>(){{
