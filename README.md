@@ -7,6 +7,9 @@ Use Maven to build:
     
 Supported commands:
 
+    ex -- extract mp3 files for dir A to B
+      usage: 'ex <dirA> <dirB>'
+
     help -- display help
       usage: 'help'
 
