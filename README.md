@@ -27,7 +27,8 @@ Supported commands:
 
     mkdir -- create new directory
       usage: 'mkdir <dir>'
-
+    rm -- remove files recursively
+      usage: 'rm <file1> <file2> ...'
     zip -- create zip archive
       usage: 'zip <file1> <file2> ... <output file>'
 
