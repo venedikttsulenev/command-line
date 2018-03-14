@@ -11,6 +11,7 @@ public class CommandResolver {
             CdCommand.getInstance(),
             PwdCommand.getInstance(),
             MkdirCommand.getInstance(),
+            RmCommand.getInstance(),
             ZipCommand.getInstance(),
             UnzipCommand.getInstance(),
             ExtractCommand.getInstance()
