@@ -1,4 +1,4 @@
-# command-line
+# command-line homework
 Command line implementation.
 
 Use Maven to build:
